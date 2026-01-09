@@ -374,6 +374,12 @@ export function revealjsFormat() {
         // return extras
         return extras;
       },
+      extensions: {
+        book: {
+          multiFile: true,
+          formatOutputDirectory: () => "revealjs",
+        },
+      },
     },
   );
 }

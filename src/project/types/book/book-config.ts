@@ -485,9 +485,9 @@ function hasRevealjsFormat(config: ProjectConfig): boolean {
 
 function getRevealjsHref(htmlHref: string): string {
   // Convert the HTML href to revealjs href
-  // e.g., "intro.html" -> "intro.html" (revealjs also outputs .html files)
-  // The revealjs output will be in the same location
-  return htmlHref;
+  // RevealJS outputs are in a subdirectory named 'revealjs'
+  // e.g., "intro.html" -> "revealjs/intro.html"
+  return `revealjs/${htmlHref}`;
 }
 
 function downloadTools(

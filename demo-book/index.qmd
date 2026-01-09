@@ -1,0 +1,14 @@
+# Preface {.unnumbered}
+
+This is a demo Quarto book showcasing the new RevealJS format support for books.
+
+## About This Demo
+
+This book demonstrates:
+
+- Creating a Quarto book with multiple chapters
+- Using both HTML and RevealJS output formats
+- Navigation between different format outputs
+- Integration of RevealJS presentations within a book structure
+
+To learn more about Quarto books, visit <https://quarto.org/docs/books>.

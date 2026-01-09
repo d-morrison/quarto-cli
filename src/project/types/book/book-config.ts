@@ -75,6 +75,7 @@ import {
   kBookItemPart,
   kBookReferences,
   kBookRender,
+  kBookRevealjsOutputDir,
   kBookSearch,
   kBookTools,
 } from "./book-constants.ts";
@@ -480,14 +481,17 @@ function hasRevealjsFormat(config: ProjectConfig): boolean {
     return false;
   }
   const formats = Object.keys(config.format);
-  return formats.some((format) => format === "revealjs" || format.startsWith("revealjs+"));
+  return formats.some((format) => 
+    format === kBookRevealjsOutputDir || 
+    format.startsWith(`${kBookRevealjsOutputDir}+`)
+  );
 }
 
 function getRevealjsHref(htmlHref: string): string {
   // Convert the HTML href to revealjs href
-  // RevealJS outputs are in a subdirectory named 'revealjs'
+  // RevealJS outputs are in a subdirectory named by kBookRevealjsOutputDir
   // e.g., "intro.html" -> "revealjs/intro.html"
-  return `revealjs/${htmlHref}`;
+  return `${kBookRevealjsOutputDir}/${htmlHref}`;
 }
 
 function downloadTools(

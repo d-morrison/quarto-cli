@@ -301,6 +301,9 @@ export type SidebarItem = NavigationItemObject & {
   expanded?: boolean;
   active?: boolean;
 
+  // revealjs link for book projects
+  revealjsHref?: string;
+
   // transient properties used for expanding 'auto'
   auto?: boolean | string | string[];
 };

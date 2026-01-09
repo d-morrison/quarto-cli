@@ -17,3 +17,4 @@ export const kBookSearch = "search";
 export const kBookItemChapter = "chapter";
 export const kBookItemAppendix = "appendix";
 export const kBookItemPart = "part";
+export const kBookRevealjsOutputDir = "revealjs";

@@ -1,0 +1,52 @@
+# Chapter 2: Advanced Features
+
+## Callouts
+
+::: {.callout-note}
+This is a callout note. It helps highlight important information.
+:::
+
+::: {.callout-tip}
+## Pro Tip
+Use callouts to make your content more engaging!
+:::
+
+::: {.callout-warning}
+Be careful when using complex features - test thoroughly!
+:::
+
+## Columns Layout
+
+:::: {.columns}
+
+::: {.column width="50%"}
+### Left Column
+Content on the left side.
+:::
+
+::: {.column width="50%"}
+### Right Column
+Content on the right side.
+:::
+
+::::
+
+## Incremental Lists
+
+In RevealJS format, you can reveal list items one at a time:
+
+::: {.incremental}
+- First item
+- Second item  
+- Third item
+:::
+
+## Fragments
+
+::: {.fragment}
+This text will appear as a fragment in RevealJS.
+:::
+
+::: {.fragment .fade-in}
+This will fade in.
+:::

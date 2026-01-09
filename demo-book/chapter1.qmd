@@ -1,0 +1,37 @@
+# Chapter 1: Creating Content
+
+## Writing Markdown
+
+Quarto uses Markdown for text formatting:
+
+- **Bold text** with `**text**`
+- *Italic text* with `*text*`
+- `Code` with backticks
+
+## Adding Code
+
+You can include code blocks:
+
+```python
+def hello_world():
+    print("Hello from Quarto!")
+    return True
+```
+
+## Math Equations
+
+Quarto supports LaTeX math:
+
+$$
+E = mc^2
+$$
+
+Inline math works too: $a^2 + b^2 = c^2$
+
+## Lists and Tables
+
+| Feature | HTML | RevealJS |
+|---------|------|----------|
+| Interactive | ✓ | ✓ |
+| Printable | ✓ | - |
+| Slides | - | ✓ |

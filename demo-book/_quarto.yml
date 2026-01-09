@@ -1,0 +1,20 @@
+project:
+  type: book
+
+book:
+  title: "Demo Quarto Book with RevealJS"
+  author: "Quarto Demo"
+  date: "2026-01-09"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - chapter1.qmd
+    - chapter2.qmd
+    - summary.qmd
+
+format:
+  html: 
+    theme: cosmo
+  revealjs:
+    theme: night
+    slide-number: true

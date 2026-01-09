@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Demo Book with RevealJS - Mockup</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 300px;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+        }
+        .sidebar h1 {
+            font-size: 20px;
+            margin: 0 0 20px 0;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .sidebar-item {
+            margin: 8px 0;
+        }
+        .sidebar-item-container {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        .sidebar-item-container:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .sidebar-link {
+            flex: 1;
+            color: #ecf0f1;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar-link.active {
+            color: #3498db;
+            font-weight: 600;
+        }
+        .chapter-number {
+            margin-right: 8px;
+            color: #95a5a6;
+        }
+        .quarto-alternate-format-link {
+            margin-left: 8px;
+            color: #95a5a6;
+            font-size: 14px;
+            opacity: 0.7;
+            transition: opacity 0.2s, color 0.2s;
+            text-decoration: none;
+            padding: 4px 8px;
+            border-radius: 3px;
+        }
+        .quarto-alternate-format-link:hover {
+            opacity: 1;
+            color: #3498db;
+            background: rgba(52, 152, 219, 0.1);
+        }
+        .content {
+            flex: 1;
+            padding: 40px;
+        }
+        .content h1 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .feature-box {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .feature-box h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .bi-easel::before {
+            content: "🎨";
+            font-style: normal;
+        }
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .note strong {
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h1>Demo Quarto Book with RevealJS</h1>
+            
+            <div class="sidebar-item">
+                <div class="sidebar-item-container">
+                    <a href="#" class="sidebar-link">
+                        <span class="menu-text">Preface</span>
+                    </a>
+                    <a href="#" class="quarto-alternate-format-link" title="Open RevealJS presentation">
+                        <i class="bi bi-easel"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="sidebar-item">
+                <div class="sidebar-item-container">
+                    <a href="#" class="sidebar-link active">
+                        <span class="chapter-number">1</span>
+                        <span class="menu-text">Introduction</span>
+                    </a>
+                    <a href="#" class="quarto-alternate-format-link" title="Open RevealJS presentation">
+                        <i class="bi bi-easel"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="sidebar-item">
+                <div class="sidebar-item-container">
+                    <a href="#" class="sidebar-link">
+                        <span class="chapter-number">2</span>
+                        <span class="menu-text">Creating Content</span>
+                    </a>
+                    <a href="#" class="quarto-alternate-format-link" title="Open RevealJS presentation">
+                        <i class="bi bi-easel"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="sidebar-item">
+                <div class="sidebar-item-container">
+                    <a href="#" class="sidebar-link">
+                        <span class="chapter-number">3</span>
+                        <span class="menu-text">Advanced Features</span>
+                    </a>
+                    <a href="#" class="quarto-alternate-format-link" title="Open RevealJS presentation">
+                        <i class="bi bi-easel"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="sidebar-item">
+                <div class="sidebar-item-container">
+                    <a href="#" class="sidebar-link">
+                        <span class="menu-text">Summary</span>
+                    </a>
+                    <a href="#" class="quarto-alternate-format-link" title="Open RevealJS presentation">
+                        <i class="bi bi-easel"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <h1>Demo Book with RevealJS Format Support</h1>
+            
+            <p>This mockup demonstrates the new RevealJS format support for Quarto books. Notice the <strong>easel icons (🎨)</strong> in the sidebar next to each chapter.</p>
+            
+            <div class="feature-box">
+                <h3>✨ Key Feature: Dual-Format Output</h3>
+                <p>Each chapter is rendered in two formats:</p>
+                <ul>
+                    <li><strong>HTML</strong> - For reading and documentation (you're viewing this now)</li>
+                    <li><strong>RevealJS</strong> - For presentations (click the easel icon 🎨)</li>
+                </ul>
+            </div>
+            
+            <h2>How It Works</h2>
+            
+            <p>The book's <code>_quarto.yml</code> configuration specifies multiple output formats:</p>
+            
+            <div class="code-block">
+format:
+  html: 
+    theme: cosmo
+  revealjs:
+    theme: night
+    slide-number: true
+            </div>
+            
+            <h2>Output Structure</h2>
+            
+            <p>When rendered, the book generates:</p>
+            
+            <div class="code-block">
+_book/
+├── index.html              # HTML pages for reading
+├── intro.html
+├── chapter1.html
+├── chapter2.html
+├── summary.html
+└── revealjs/               # RevealJS presentations
+    ├── index.html
+    ├── intro.html
+    ├── chapter1.html
+    ├── chapter2.html
+    └── summary.html
+            </div>
+            
+            <div class="note">
+                <strong>📝 Note:</strong> This is a mockup showing the UI enhancement. The actual implementation adds the easel icons dynamically based on the available output formats for each chapter, with proper links to the RevealJS presentations in the <code>revealjs/</code> subdirectory.
+            </div>
+            
+            <h2>Implementation Details</h2>
+            
+            <p>The feature is implemented through modifications to:</p>
+            
+            <ul>
+                <li><strong>format-reveal.ts</strong> - Adds book extension support with multi-file output</li>
+                <li><strong>book-config.ts</strong> - Generates revealjsHref for sidebar items</li>
+                <li><strong>sidebaritem.ejs</strong> - Renders the RevealJS link icons</li>
+                <li><strong>book.scss</strong> - Styles the alternate format links</li>
+            </ul>
+            
+            <h2>Benefits</h2>
+            
+            <div class="feature-box">
+                <h3>📚 Write Once, Present Anywhere</h3>
+                <p>Maintain a single source of truth for your content that works for both documentation and presentations. The same Markdown files generate beautifully formatted HTML pages for reading and engaging RevealJS slide decks for presenting.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

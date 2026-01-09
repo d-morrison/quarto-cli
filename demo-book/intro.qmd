@@ -1,0 +1,18 @@
+# Introduction
+
+Welcome to our demo book! This chapter introduces the main concepts.
+
+## What is Quarto?
+
+Quarto is an open-source scientific and technical publishing system.
+
+## Key Features
+
+- **Multi-format output**: HTML, PDF, RevealJS, and more
+- **Code execution**: Python, R, Julia, and JavaScript
+- **Reproducible research**: Combine narrative with executable code
+- **Beautiful presentations**: Create slides directly from your content
+
+## Getting Started
+
+This book will guide you through the basics of using Quarto with RevealJS.

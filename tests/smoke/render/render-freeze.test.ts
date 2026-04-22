@@ -162,6 +162,89 @@ testRender(
   },
 );
 
+const includeTestFileName = "freeze-include-test";
+const includeTempDir = Deno.makeTempDirSync();
+const includePath = join(includeTempDir, "_include.md");
+const includeDocPath = join(includeTempDir, `${includeTestFileName}.qmd`);
+const includeMeta: Metadata = {
+  title: "Freeze Include Test",
+  format: "html",
+  freeze: "auto",
+};
+const includeMarkdown: string[] = [
+  "## Freeze Include Testing Document",
+  "",
+  "```{r}",
+  "plot(cars)",
+  "```",
+  "",
+  "{{< include _include.md >}}",
+  "",
+];
+
+const includeProjectOutputExists: Verify = {
+  name: "Make sure include test project output exists",
+  verify: (_output: ExecuteOutput[]) => {
+    outputCreated(includeDocPath, "html");
+    return Promise.resolve();
+  },
+};
+
+function includeTestFileContext(
+  path: string,
+  includePath: string,
+  frontMatter: Metadata,
+  markdown: string[],
+) {
+  const dir = dirname(path);
+  const quartoProj = join(dir, "_quarto.yml");
+  return {
+    setup: async () => {
+      await Deno.writeTextFile(
+        quartoProj,
+        "title: 'Hello Project'\nproject:\n  type: default\n",
+      );
+
+      await Deno.writeTextFile(includePath, "Initial include content\n");
+      await writeFile(path, frontMatter, markdown);
+      await quarto(["render", path]);
+    },
+    teardown: async () => {
+      await Deno.remove(path);
+      await Deno.remove(includePath);
+      await Deno.remove(quartoProj);
+
+      const freezerDir = join(dirname(path), "_freeze");
+      Deno.removeSync(join(freezerDir, includeTestFileName), {
+        recursive: true,
+      });
+      removeIfEmptyDir(freezerDir);
+    },
+  };
+}
+
+const includeTestContext = includeTestFileContext(
+  includeDocPath,
+  includePath,
+  includeMeta,
+  includeMarkdown,
+);
+
+testRender(
+  dirname(includeDocPath) + "/",
+  "html",
+  false,
+  [includeProjectOutputExists, ignoreFrozen],
+  {
+    name: "dirty fzr - include shortcode subfile",
+    setup: async () => {
+      await includeTestContext.setup();
+      await Deno.writeTextFile(includePath, "Updated include content\n");
+    },
+    teardown: includeTestContext.teardown,
+  },
+);
+
 // Render and mutate to be sure we ignore freezer
 testRender(
   dirname(path) + "/",

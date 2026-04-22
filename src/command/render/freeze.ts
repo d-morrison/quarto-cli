@@ -51,6 +51,7 @@ export function freezeExecuteResult(
   input: string,
   output: string,
   result: ExecuteResult,
+  markdown?: string,
 ) {
   // resolve includes within executeResult
   // nb: Beware to not modify the original result object
@@ -84,7 +85,7 @@ export function freezeExecuteResult(
   });
 
   // save both the result and a hash of the input file
-  const hash = freezeInputHash(input);
+  const hash = freezeInputHash(input, markdown);
 
   // write the freeze json
   const freezeJsonFile = freezeResultFile(input, output, true);
@@ -102,6 +103,7 @@ export function defrostExecuteResult(
   output: string,
   temp: TempContext,
   force = false,
+  markdown?: string,
 ) {
   const resultFile = freezeResultFile(source, output);
   if (existsSync(resultFile)) {
@@ -131,7 +133,7 @@ export function defrostExecuteResult(
     }
 
     // use frozen version for force or equivalent source hash
-    if (force || hash === freezeInputHash(source)) {
+    if (force || hash === freezeInputHash(source, markdown)) {
       // full path to supporting
       result.supporting = result.supporting.map((file) =>
         join(normalizePath(dirname(source)), file)
@@ -309,10 +311,11 @@ export function removeFreezeResults(filesDir: string) {
   }
 }
 
-function freezeInputHash(input: string) {
+function freezeInputHash(input: string, markdown?: string) {
   // Calculate the hash on a content with LF line ending to avoid
   // different hash on different OS (#3599)
-  return md5HashSync(format(Deno.readTextFileSync(input), LF));
+  const content = markdown ?? Deno.readTextFileSync(input);
+  return md5HashSync(format(content, LF));
 }
 
 // don't use _files suffix in freezer

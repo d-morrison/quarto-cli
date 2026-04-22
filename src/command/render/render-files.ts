@@ -187,6 +187,7 @@ export async function renderExecute(
         output,
         context.options.services.temp,
         thaw === true,
+        context.target.markdown.value,
       );
       if (thawedResult) {
         // copy the site_libs dir from the freezer
@@ -244,6 +245,7 @@ export async function renderExecute(
       context.target.source,
       output,
       executeResult,
+      context.target.markdown.value,
     );
 
     // always copy to the hidden freezer

@@ -6,6 +6,7 @@
 */
 import { stringify } from "../../../src/core/yaml.ts";
 import { dirname, join } from "../../../src/deno_ral/path.ts";
+import { existsSync } from "../../../src/deno_ral/fs.ts";
 import { assert } from "testing/asserts";
 
 import { Metadata } from "../../../src/config/types.ts";
@@ -163,9 +164,8 @@ testRender(
 );
 
 const includeTestFileName = "freeze-include-test";
-const includeTempDir = Deno.makeTempDirSync();
-const includePath = join(includeTempDir, "_include.md");
-const includeDocPath = join(includeTempDir, `${includeTestFileName}.qmd`);
+const includePath = join(tempDir, "_include.md");
+const includeDocPath = join(tempDir, `${includeTestFileName}.qmd`);
 const includeMeta: Metadata = {
   title: "Freeze Include Test",
   format: "html",
@@ -208,6 +208,12 @@ function includeTestFileContext(
       await Deno.writeTextFile(includePath, "Initial include content\n");
       await writeFile(path, frontMatter, markdown);
       await quarto(["render", path]);
+      assert(
+        existsSync(
+          join(dir, "_freeze", includeTestFileName, "execute-results", "html.json"),
+        ),
+        "Initial render should produce frozen execution results",
+      );
     },
     teardown: async () => {
       await Deno.remove(path);
@@ -215,7 +221,7 @@ function includeTestFileContext(
       await Deno.remove(quartoProj);
 
       const freezerDir = join(dirname(path), "_freeze");
-      Deno.removeSync(join(freezerDir, includeTestFileName), {
+      await Deno.remove(join(freezerDir, includeTestFileName), {
         recursive: true,
       });
       removeIfEmptyDir(freezerDir);
@@ -236,7 +242,7 @@ testRender(
   false,
   [includeProjectOutputExists, ignoreFrozen],
   {
-    name: "dirty fzr - include shortcode subfile",
+    name: "dirty freezer - include shortcode subfile",
     setup: async () => {
       await includeTestContext.setup();
       await Deno.writeTextFile(includePath, "Updated include content\n");

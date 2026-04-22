@@ -81,6 +81,7 @@ import { titleSlidePartial } from "./format-reveal-title.ts";
 import { registerWriterFormatHandler } from "../format-handlers.ts";
 import { pandocNativeStr } from "../../core/pandoc/codegen.ts";
 import { logoAddLeadingSlashes, resolveLogo } from "../../core/brand/brand.ts";
+import { kBookRevealjsOutputDir } from "../../project/types/book/book-constants.ts";
 
 export function revealResolveFormat(format: Format) {
   format.metadata = revealMetadataFilter(format.metadata);
@@ -387,6 +388,12 @@ export function revealjsFormat() {
 
         // return extras
         return extras;
+      },
+      extensions: {
+        book: {
+          multiFile: true,
+          formatOutputDirectory: () => kBookRevealjsOutputDir,
+        },
       },
     },
   );

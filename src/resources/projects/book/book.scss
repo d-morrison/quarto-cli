@@ -4,3 +4,24 @@
   color: $body-color;
 }
 
+.quarto-alternate-format-link {
+  margin-left: 0.5em;
+  color: $secondary;
+  font-size: 0.875em;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  
+  &:hover {
+    opacity: 1;
+    color: $link-color;
+  }
+}
+
+.sidebar-item-container {
+  display: flex;
+  align-items: center;
+  
+  .sidebar-link {
+    flex: 1;
+  }
+}

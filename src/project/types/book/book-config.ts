@@ -75,6 +75,7 @@ import {
   kBookItemPart,
   kBookReferences,
   kBookRender,
+  kBookRevealjsOutputDir,
   kBookSearch,
   kBookTools,
 } from "./book-constants.ts";
@@ -203,6 +204,7 @@ export async function bookProjectConfig(
   if (Array.isArray(bookContents)) {
     siteSidebar[kContents] = bookChaptersToSidebarItems(
       bookContents as BookChapterItem[],
+      config,
     );
   }
   const bookReferences = bookConfig(kBookReferences, config);
@@ -216,7 +218,7 @@ export async function bookProjectConfig(
         chapterToSidebarItem({
           part: language[kSectionTitleAppendices],
           chapters: bookAppendix as BookChapterItem[],
-        }),
+        }, config),
       ]);
   }
 
@@ -451,21 +453,45 @@ interface BookChapterItem extends SidebarItem {
   chapters?: BookChapterItem[];
 }
 
-function bookChaptersToSidebarItems(chapters: BookChapterItem[]) {
-  return chapters.map(chapterToSidebarItem);
+function bookChaptersToSidebarItems(chapters: BookChapterItem[], config?: ProjectConfig) {
+  return chapters.map((chapter) => chapterToSidebarItem(chapter, config));
 }
 
-function chapterToSidebarItem(chapter: BookChapterItem) {
-  const item = ld.cloneDeep(chapter) as BookChapterItem;
+function chapterToSidebarItem(chapter: BookChapterItem, config?: ProjectConfig): SidebarItem {
+  const item = ld.cloneDeep(chapter) as BookChapterItem & { revealjsHref?: string };
   if (item.part) {
     item.section = item.part;
     delete item.part;
   }
   if (item.chapters) {
-    item.contents = bookChaptersToSidebarItems(item.chapters);
+    item.contents = bookChaptersToSidebarItems(item.chapters, config);
     delete item.chapters;
   }
+  
+  // Add revealjs link if the format is configured and this item has an href
+  if (config && item.href && hasRevealjsFormat(config)) {
+    item.revealjsHref = getRevealjsHref(item.href);
+  }
+  
   return item;
+}
+
+function hasRevealjsFormat(config: ProjectConfig): boolean {
+  if (!config.format) {
+    return false;
+  }
+  const formats = Object.keys(config.format);
+  return formats.some((format) => 
+    format === kBookRevealjsOutputDir || 
+    format.startsWith(`${kBookRevealjsOutputDir}+`)
+  );
+}
+
+function getRevealjsHref(htmlHref: string): string {
+  // Convert the HTML href to revealjs href
+  // RevealJS outputs are in a subdirectory named by kBookRevealjsOutputDir
+  // e.g., "intro.html" -> "revealjs/intro.html"
+  return `${kBookRevealjsOutputDir}/${htmlHref}`;
 }
 
 function downloadTools(
